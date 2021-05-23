@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="click"
+    android:id="@+id/button2"/>
+
+    <FrameLayout
+        android:id="@+id/fragment"
+
+        android:layout_width="395dp"
+        android:layout_height="509dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+
+<!--    <com.xuexiang.xui.widget.banner.widget.loopviewpager.LoopViewPager-->
+<!--        android:id="@+id/viewpager1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="#ccffff"-->
+<!--        android:layout_weight="1" />-->
+
+<!--    <fragment-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:name="com.example.testshareperference.fragment.fragmentLeft"-->
+<!--        android:id="@+id/leftfragment"-->
+<!--        android:layout_weight="1"-->
+<!--        />-->
+<!--    //分割线-->
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/blue_end"-->
+<!--        />-->
+<!--    <fragment-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:name="com.example.testshareperference.fragment.fragmentSentencence"-->
+<!--        android:id="@+id/rightfragment"-->
+<!--        android:layout_weight="1"/>-->
+</LinearLayout>

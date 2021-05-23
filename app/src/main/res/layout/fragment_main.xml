@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <!--    <com.google.android.material.appbar.MaterialToolbar-->
+    <!--        android:id="@+id/main_toolbar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"-->
+    <!--        app:popupTheme="@style/Theme.AppCompat.Light"-->
+    <!--        android:minHeight="?attr/actionBarSize"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        />-->
+
+
+    <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
+        android:id="@+id/sib_the_most_comlex_usage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="?attr/actionBarSize"
+        app:bb_barColor="#88000000"
+        app:bb_barPaddingBottom="5dp"
+        app:bb_barPaddingLeft="10dp"
+        app:bb_barPaddingRight="10dp"
+        app:bb_barPaddingTop="5dp"
+        app:bb_delay="2"
+        app:bb_indicatorCornerRadius="3dp"
+        app:bb_indicatorGap="8dp"
+        app:bb_indicatorGravity="RIGHT"
+        app:bb_indicatorHeight="6dp"
+        app:bb_indicatorSelectColor="#ffffff"
+        app:bb_indicatorStyle="CORNER_RECTANGLE"
+        app:bb_indicatorUnselectColor="#88ffffff"
+        app:bb_indicatorWidth="6dp"
+        app:bb_isAutoScrollEnable="true"
+        app:bb_isBarShowWhenLast="true"
+        app:bb_isIndicatorShow="true"
+        app:bb_isLoopEnable="true"
+        app:bb_isTitleShow="true"
+        app:bb_period="10"
+        app:bb_scale="0.5625"
+        app:bb_textColor="#ffffff"
+        app:bb_textSize="13.5sp" />
+
+    <TextView
+        android:id="@+id/editview"
+        android:layout_width="327dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sib_the_most_comlex_usage"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:hint="考研日期倒计时"
+        android:textSize="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editview"
+        android:layout_margin="14dp"
+        app:cardBackgroundColor="@color/green_end"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:contentPadding="8dp">
+
+        <EditText
+            android:id="@+id/editview2"
+            android:layout_width="327dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editview"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/edit"
+            android:hint="请输入你今天的总结心得\n（比如你今天学了什么）"
+            android:textColorHint="@color/check_bg"
+
+             />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/main_button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_cardview"
+        android:layout_alignRight="@+id/main_cardview"
+        android:layout_marginBottom="0dp"
+        android:text="+"
+        app:layout_constraintStart_toStartOf="@+id/main_cardview"
+        app:layout_constraintTop_toBottomOf="@+id/main_cardview" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_button_add">
+
+        <com.xuexiang.xui.widget.layout.linkage.view.LinkageRecyclerView
+            android:id="@+id/reclyerView_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+
+</RelativeLayout>

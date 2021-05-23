@@ -1,0 +1,32 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+     android:layout_width="wrap_content"
+    android:orientation="vertical">
+
+    <com.xuexiang.xui.widget.imageview.IconImageView
+        android:id="@+id/nav_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nofaceman"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:text="@string/app_name"
+        app:layout_constraintStart_toEndOf="@+id/nav_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这个人很懒，但也在很勤奋考研中..."
+        app:layout_constraintStart_toStartOf="@+id/nav_icon"
+        app:layout_constraintTop_toBottomOf="@+id/nav_icon"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

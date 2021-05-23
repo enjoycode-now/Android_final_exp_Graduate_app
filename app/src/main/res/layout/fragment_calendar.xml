@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_calendar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.xuexiang.xui.widget.layout.XUIRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="112dp"
+        android:layout_centerInParent="true"
+        android:background="@color/blue_end"
+        />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calendarView"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="取消"
+         />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_below="@+id/calendarView"
+        android:layout_toRightOf="@+id/button3"
+        />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="你选择的日期"
+        android:layout_below="@+id/calendarView"
+        />
+    </com.xuexiang.xui.widget.layout.XUIRelativeLayout>
+</FrameLayout>

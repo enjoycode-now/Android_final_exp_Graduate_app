@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lab_submit">是</string>
+    <string name="lab_cancel">否</string>
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_homepage"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="主页" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_baseline_local_play_24"
+            android:title="娱乐" />
+        <item
+            android:id="@+id/every_sentence"
+            android:checked="true"
+            android:icon="@drawable/nofaceman"
+            android:title="每日一句" />
+        <item
+            android:id="@+id/nav_me"
+            android:icon="@drawable/ic_baseline_account_circle_24"
+            android:title="我的" />
+        <item
+            android:id="@+id/nav_castles"
+
+            android:title="城堡(test)" />
+        <item
+            android:id="@+id/nav_night"
+            android:checkable="false"
+
+            android:title="夜间模式(test)"
+             />
+
+        <item
+            android:id="@+id/nav_person1"
+            android:checked="true"
+            android:title="人物(test)" />
+        <item
+            android:id="@+id/nav_house1"
+
+            android:title="家族(test)" />
+        <item
+            android:id="@+id/nav_history1"
+
+            android:title="历史(test)" />
+        <item
+            android:id="@+id/nav_castles1"
+
+            android:title="城堡(test)" />
+        <item
+            android:id="@+id/nav_night1"
+            android:checkable="false"
+
+            android:title="夜间模式(test)"
+            />
+
+        <item
+            android:id="@+id/nav_person2"
+            android:checked="true"
+
+            android:title="人物(test)" />
+        <item
+            android:id="@+id/nav_house2"
+
+            android:title="家族(test)" />
+        <item
+            android:id="@+id/nav_history2"
+
+            android:title="历史(test)" />
+        <item
+            android:id="@+id/nav_castles2"
+
+            android:title="城堡(test)" />
+        <item
+            android:id="@+id/nav_night2"
+            android:checkable="false"
+
+            android:title="夜间模式(test)"
+            />
+    </group>
+
+</menu>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/home_page_bottom"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="主页" />
+
+    <item
+        android:id="@+id/funny_bottom"
+        android:icon="@drawable/ic_baseline_local_play_24"
+        android:title="娱乐" />
+    <item
+        android:id="@+id/every_sentence_bottom"
+        android:icon="@drawable/ic_baseline_web_asset_24"
+        android:title="每天一句" />
+    <item
+        android:id="@+id/profile_bottom"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="我的" />
+</menu>
