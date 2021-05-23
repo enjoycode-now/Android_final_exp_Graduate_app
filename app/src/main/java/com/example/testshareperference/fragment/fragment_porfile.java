@@ -120,7 +120,7 @@ public class fragment_porfile extends Fragment {
         });
 
 
-        //账号
+        //删除用户数据
         profileUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
