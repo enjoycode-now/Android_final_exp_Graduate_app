@@ -48,12 +48,7 @@ public class IntroduceActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
-        SharedPreferences sp=this.getPreferences(MODE_PRIVATE);
-        if(sp.getString("kaoYanDate","-1").equals("-1")){
-            SharedPreferences.Editor editor=sp.edit();
-            editor.putString("kaoYanDate", "2021-12-26");
-            editor.commit();
-        }
+
 
     }
 

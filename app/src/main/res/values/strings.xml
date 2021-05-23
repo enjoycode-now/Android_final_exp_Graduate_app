@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">加油吧！考研人</string>
+    <string name="app_name">加油考研人</string>
     <string name="lab_submit">是</string>
     <string name="lab_cancel">否</string>
     <!--默认字体路径-->

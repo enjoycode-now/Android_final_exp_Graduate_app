@@ -15,10 +15,12 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/agentweb"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/include_toolbar_web" />
+    <include layout="@layout/fragement_about"/>
 
 </LinearLayout>

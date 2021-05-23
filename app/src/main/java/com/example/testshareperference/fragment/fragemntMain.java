@@ -58,7 +58,7 @@ public class fragemntMain extends Fragment {
         initViewID(view);
         initRecylerViewData();
         initData();
-        initRecylerViewData();
+        initKaoYanDate();
         banner.setSource(mData)
                 .setSelectAnimClass(ZoomInEnter.class)
                 .setOnItemClickListener(new BaseBanner.OnItemClickListener<BannerItem>() {
@@ -111,7 +111,7 @@ public class fragemntMain extends Fragment {
     }
 
     private int initReverseTime() {
-        SharedPreferences sp=getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sp=getActivity().getSharedPreferences("Date",Context.MODE_PRIVATE);
         SimpleDateFormat simpleFormatter = new SimpleDateFormat("yyyy-MM-dd");
         today = new Date();
         try {
@@ -129,6 +129,14 @@ public class fragemntMain extends Fragment {
 
     private void initData() {
         mData = DataProvider.getBannerList();
+    }
+    private void initKaoYanDate() {
+        SharedPreferences sp=getActivity().getSharedPreferences("Date",Context.MODE_PRIVATE);
+        if(sp.getString("kaoYanDate","-1").equals("-1")){
+            SharedPreferences.Editor editor=sp.edit();
+            editor.putString("kaoYanDate", "2021-12-26");
+            editor.commit();
+        }
     }
     private void initViewID(View view) {
         button = (Button) view.findViewById(R.id.main_button_add);//+

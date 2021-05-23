@@ -19,6 +19,7 @@
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
                     style="@style/InfoItem.Account"
                     android:layout_height="60dp"
+                    android:id="@+id/riv_head"
                     app:sLeftTextString="头像">
 
                     <com.xuexiang.xui.widget.imageview.RadiusImageView
@@ -35,18 +36,21 @@
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
                     android:id="@+id/profile_user"
                     style="@style/InfoItem.Account"
-                    app:sLeftTextString="账号" />
+                    app:sLeftTextString="删除用户数据" />
 
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
                     android:id="@+id/profile_notice"
                     style="@style/InfoItem.Account"
-                    app:sLeftTextString="通知" />
+                    app:sLeftTextString="研招官网"
+                    app:sLeftIconRes="@drawable/ic_baseline_star_outline_24"
+                    app:sLeftTextColor="@color/dark_orange"
+                    />
 
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                    android:id="@+id/menu_settings"
                     style="@style/InfoItem.Account"
-                    android:id="@+id/profile_save"
-                    app:sDividerLineType="none"
-                    app:sLeftTextString="收藏" />
+                    android:layout_marginTop="20dp"
+                    app:sLeftTextString="设置考研日期" />
 
 
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
@@ -55,12 +59,13 @@
                     android:layout_marginTop="20dp"
                     app:sDividerLineType="none"
                     app:sLeftTextString="意见反馈" />
-
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
-                    android:id="@+id/menu_settings"
                     style="@style/InfoItem.Account"
-                    android:layout_marginTop="20dp"
-                    app:sLeftTextString="设置考研日期" />
+                    android:id="@+id/profile_save"
+                    app:sDividerLineType="none"
+                    app:sLeftTextString="致谢" />
+
+
 
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
                     android:id="@+id/menu_about"

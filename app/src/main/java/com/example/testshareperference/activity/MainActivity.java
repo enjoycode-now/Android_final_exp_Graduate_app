@@ -1,6 +1,7 @@
 package com.example.testshareperference.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         initViewID();
+
         //主页内容填充
         Fragment[] fragments = new Fragment[]{
                 new fragemntMain(),
@@ -100,18 +102,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.every_sentence_bottom:
+                        navigationView.setCheckedItem(R.id.every_sentence);
                         viewPager.setCurrentItem(2,true);
                         Toast.makeText(MainActivity.this, "你点击了每天一句", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.home_page_bottom:
+                        navigationView.setCheckedItem(R.id.nav_homepage);
                         viewPager.setCurrentItem(0,true);
                         Toast.makeText(MainActivity.this, "你点击了主页", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.funny_bottom:
+                        navigationView.setCheckedItem(R.id.nav_history);
                         viewPager.setCurrentItem(1,true);
                         Toast.makeText(MainActivity.this, "你点击了娱乐", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.profile_bottom:
+                        navigationView.setCheckedItem(R.id.nav_me);
                         viewPager.setCurrentItem(3,true);
                         Toast.makeText(MainActivity.this, "你点击了我的", Toast.LENGTH_SHORT).show();
                         break;
@@ -163,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main_toolbar,menu);
@@ -174,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_home_page:
+                navigationView.setCheckedItem(R.id.nav_homepage);
+                viewPager.setCurrentItem(3,true);
                 Toast.makeText(this,"你点击了主页",Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:
