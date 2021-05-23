@@ -1,49 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_calendar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.xuexiang.xui.widget.layout.XUIRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="112dp"
-        android:layout_centerInParent="true"
-        android:background="@color/blue_end"
-        />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calendarView"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="取消"
-         />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar_cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            app:cardBackgroundColor="@color/app_color_theme_6"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:contentPadding="8dp">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="确定"
-        android:layout_below="@+id/calendarView"
-        android:layout_toRightOf="@+id/button3"
-        />
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="你选择的日期"
-        android:layout_below="@+id/calendarView"
-        />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar_cardView_button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            app:cardBackgroundColor="@color/app_color_theme_6"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            android:layout_below="@+id/calendar_cardView"
+            android:layout_toRightOf="@+id/calendar_cardView_textView"
+            app:contentPadding="8dp">
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消" />
+    </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar_cardView_button_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            app:cardBackgroundColor="@color/app_color_theme_6"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            android:layout_below="@+id/calendar_cardView"
+            android:layout_toRightOf="@+id/calendar_cardView_button_cancel"
+            app:contentPadding="8dp">
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="确定" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar_cardView_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            app:cardBackgroundColor="@color/app_color_theme_6"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            android:layout_below="@+id/calendar_cardView"
+            app:contentPadding="8dp">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="你选择的日期" />
+        </androidx.cardview.widget.CardView>
     </com.xuexiang.xui.widget.layout.XUIRelativeLayout>
 </FrameLayout>

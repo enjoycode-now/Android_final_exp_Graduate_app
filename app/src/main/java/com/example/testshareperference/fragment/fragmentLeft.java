@@ -93,17 +93,22 @@ public class fragmentLeft extends Fragment {
             switch (v.getId()) {
                 case R.id.iv_more:
                     Toast.makeText(getContext(),"客官稍等，页面加载中...",Toast.LENGTH_SHORT).show();
-                    webAbout.loadUrl("http://www.baidu.com");
+                    webAbout.loadUrl("https://www.douban.com/group/240355/");
                     break;
                 case R.id.iv_finish:
                     Toast.makeText(getContext(),"客官稍等，页面加载中...",Toast.LENGTH_SHORT).show();
-                    webAbout.loadUrl("http://8.135.59.161:8088/index.html");
+                    while(webAbout.canGoBack()){
+                        webAbout.goBack();
+                    }
+                    webAbout.loadUrl("http://8.135.59.161:8088/index2.html");
+                    break;
                 case R.id.iv_back:
                     if(webAbout.canGoBack()){
                         webAbout.goBack();
                     }else{
                         Toast.makeText(getContext(),"回不去了，我们",Toast.LENGTH_SHORT).show();
                     }
+                    break;
                 default:
                     break;
             }

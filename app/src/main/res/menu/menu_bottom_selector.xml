@@ -10,7 +10,7 @@
     <item
         android:id="@+id/funny_bottom"
         android:icon="@drawable/ic_baseline_local_play_24"
-        android:title="娱乐" />
+        android:title="考研论坛" />
     <item
         android:id="@+id/every_sentence_bottom"
         android:icon="@drawable/ic_baseline_web_asset_24"

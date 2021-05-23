@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.funny_bottom:
                         navigationView.setCheckedItem(R.id.nav_history);
                         viewPager.setCurrentItem(1,true);
-                        Toast.makeText(MainActivity.this, "你点击了娱乐", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "你点击了考研论坛", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.profile_bottom:
                         navigationView.setCheckedItem(R.id.nav_me);
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.nav_history:
                         navigationView.setCheckedItem(R.id.nav_history);
                         viewPager.setCurrentItem(1,true);
-                        Toast.makeText(MainActivity.this,"你点击了娱乐",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"你点击了考研论坛",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_me:
                         navigationView.setCheckedItem(R.id.nav_me);
