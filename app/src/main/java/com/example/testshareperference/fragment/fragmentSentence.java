@@ -28,6 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+//每天一句的fragment类
 public class fragmentSentence extends Fragment {
     TextView textView;
     TextView autohor_textView;

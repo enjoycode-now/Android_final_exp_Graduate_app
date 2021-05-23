@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.xuexiang.xui.XUI;
 
+
+//没什么用的，之前用来渲染主题的
 public class MyApp extends Application {
     @Override
     public void onCreate() {

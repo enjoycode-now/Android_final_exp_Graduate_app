@@ -31,6 +31,9 @@ public class fragmentLeft extends Fragment {
     private TextView toolbarTitle;
     private XUIAlphaImageView ivMore;
     private LinkageWebView webAbout;
+    private XUIAlphaImageView ivRefresh;
+
+
 
 
     @Nullable
@@ -45,6 +48,7 @@ public class fragmentLeft extends Fragment {
         ivBack.setOnClickListener(new OnClick());
         ivFinish.setOnClickListener(new OnClick());
         ivMore.setOnClickListener(new OnClick());
+        ivFinish.setOnClickListener(new OnClick());
         WebSettings settings = webAbout.getSettings();
         //打开内置缩放机制
         settings.setBuiltInZoomControls(true);
@@ -109,6 +113,9 @@ public class fragmentLeft extends Fragment {
                         Toast.makeText(getContext(),"回不去了，我们",Toast.LENGTH_SHORT).show();
                     }
                     break;
+                case R.id.iv_refresh:
+                    webAbout.reload();
+                    break;
                 default:
                     break;
             }
@@ -123,6 +130,6 @@ public class fragmentLeft extends Fragment {
         toolbarTitle = (TextView) view.findViewById(R.id.toolbar_title);
         ivMore = (XUIAlphaImageView) view.findViewById(R.id.iv_more);
         webAbout = (LinkageWebView) view.findViewById(R.id.web_about);
-
+        ivRefresh = (XUIAlphaImageView) view.findViewById(R.id.iv_refresh);
     }
 }

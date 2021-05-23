@@ -55,12 +55,16 @@ public class fragemntMain extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        //fragment一开始都是要绑定一个fragemnt类的
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+
         initViewID(view);
         initRecylerViewData();
         initData();
         initKaoYanDate();
+
+
+        //轮播条banner
         banner.setSource(mData)
                 .setSelectAnimClass(ZoomInEnter.class)
                 .setOnItemClickListener(new BaseBanner.OnItemClickListener<BannerItem>() {
@@ -73,15 +77,19 @@ public class fragemntMain extends Fragment {
 
 
         editText.setText("距离考研倒计时：" + initReverseTime() + "天");
+
+        //滚动总结在这里注入内容
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         reclyerViewTodo.setLayoutManager(layoutManager);
         ToDoAdapter toDoAdapter = new ToDoAdapter(item_everSummaries_list);
+
+
         //使用recylerView嵌套scrollview的话，最好还是用android.support.v4.widget.NestedScrollView,而不是原生reclyerView
         //然后这里设置false
         reclyerViewTodo.setNestedScrollingEnabled(false);
         reclyerViewTodo.setAdapter(toDoAdapter);
 
-
+        //+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,8 +119,6 @@ public class fragemntMain extends Fragment {
 //                        }).show();
                         Toast.makeText(getContext(), "一天只能总结一次哦，你上次的总结被覆盖了", Toast.LENGTH_SHORT).show();
                         //等于1就是用户坚持要覆盖
-
-                        Log.d("myinfo", "onClick: 进来了");
                         editor.putString(today, editview2.getText().toString());
                         editor.commit();
                         position[0] = item_everSummaries_list.size() - 1;
@@ -144,10 +150,12 @@ public class fragemntMain extends Fragment {
         return view;
     }
 
+    //初始化即将要注入recylerView的内容
     private void initRecylerViewData() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mySummary", Context.MODE_PRIVATE);
         item_EverSummary item_everSummary = new item_EverSummary();
         Set<String> strings = sharedPreferences.getAll().keySet();
+        item_everSummaries_list.clear();
 
         for (String s : strings) {
             item_everSummary.setDate(s);
@@ -156,6 +164,7 @@ public class fragemntMain extends Fragment {
         }
     }
 
+    //计算倒计天数
     private int initReverseTime() {
         SharedPreferences sp = getActivity().getSharedPreferences("Date", Context.MODE_PRIVATE);
         SimpleDateFormat simpleFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -172,11 +181,11 @@ public class fragemntMain extends Fragment {
         return num;
     }
 
-
+    //初始化banner的数据
     private void initData() {
         mData = DataProvider.getBannerList();
     }
-
+    //初始化考研日期
     private void initKaoYanDate() {
         SharedPreferences sp = getActivity().getSharedPreferences("Date", Context.MODE_PRIVATE);
         if (sp.getString("kaoYanDate", "-1").equals("-1")) {
@@ -186,12 +195,22 @@ public class fragemntMain extends Fragment {
         }
     }
 
+    //每个组件要绑定变量
     private void initViewID(View view) {
         button = (Button) view.findViewById(R.id.main_button_add);//+
         editText = (TextView) view.findViewById(R.id.editview);//倒计时
-        editview2 = (EditText) view.findViewById(R.id.editview2);
+        editview2 = (EditText) view.findViewById(R.id.editview2);//输入总结文字框
 
-        reclyerViewTodo = (LinkageRecyclerView) view.findViewById(R.id.reclyerView_todo);
-        banner = view.findViewById(R.id.sib_the_most_comlex_usage);
+        reclyerViewTodo = (LinkageRecyclerView) view.findViewById(R.id.reclyerView_todo);//以及保持的总结
+        banner = view.findViewById(R.id.sib_the_most_comlex_usage);//轮播条
+    }
+
+
+    //重新回到这个fragment的操作，更新一下倒计时，以免之前改动发生的不正确
+    @Override
+    public void onResume() {
+        super.onResume();
+        editText.setText("距离考研倒计时：" + initReverseTime() + "天");
+//        initRecylerViewData();
     }
 }

@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.testshareperference.R;
+import com.example.testshareperference.activity.httpUtil.HttpSugguestRebackUtil;
 import com.xuexiang.xui.widget.alpha.XUIAlphaImageView;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
@@ -225,12 +227,21 @@ public class fragment_porfile extends Fragment {
                     }
                 });
                 popupWindow.showAsDropDown(v, 10, 10, 10);
-
+                EditText editText = contentView.findViewById(R.id.reback_testView);
                 Button button = (Button) contentView.findViewById(R.id.reback_button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popupWindow.dismiss();
+                        HttpSugguestRebackUtil httpSugguestRebackUtil = new HttpSugguestRebackUtil();
+
+                        //留下的反馈http接口,已经写好，就差后台响应逻辑
+//                        try {
+//                            httpSugguestRebackUtil.sendURLRequestForSentence(editText.getText().toString());
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Toast.makeText(getActivity(), editText.getText().toString(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), "非常感谢你此次的反馈", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -276,16 +287,20 @@ public class fragment_porfile extends Fragment {
                         Toast.makeText(getContext(), year + "年" + (month + 1) + "月" + dayOfMonth + "日", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                //取消按钮
                 button3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popupWindow.dismiss();
                     }
                 });
+
+                //确定按钮
                 button4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences sp = getActivity().getSharedPreferences("Date", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("kaoYanDate", textView2.getText().toString());
                         editor.commit();

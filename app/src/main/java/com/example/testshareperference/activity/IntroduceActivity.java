@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.testshareperference.R;
 
+
+//启动页
 public class IntroduceActivity extends AppCompatActivity implements View.OnClickListener{
 
     ImageView mimageView = null;
@@ -31,6 +33,7 @@ public class IntroduceActivity extends AppCompatActivity implements View.OnClick
 
             }
 
+            //在动画结束后，显式转到MainActivity
             @Override
             public void onAnimationEnd(Animator animation) {
                 Intent intent = new Intent(IntroduceActivity.this, MainActivity.class);
@@ -60,10 +63,6 @@ public class IntroduceActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
 
-            default:
-                break;
-        }
     }
 }

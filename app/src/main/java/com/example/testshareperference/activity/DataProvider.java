@@ -10,6 +10,8 @@ import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//本地保存的banner数据
 public class DataProvider {
     public static String[] titles = new String[]{
             "考研的路上，我们都不是孤单的",

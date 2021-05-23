@@ -39,6 +39,23 @@
             android:scaleType="center"
             android:src="@drawable/ic_baseline_close_24" />
 
+<!--        <View-->
+<!--            android:id="@+id/view_line2"-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_toEndOf="@id/iv_finish"-->
+<!--            android:background="@color/xui_config_color_white" />-->
+
+        <com.xuexiang.xui.widget.alpha.XUIAlphaImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/iv_finish"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_refresh_24" />
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
@@ -47,6 +64,7 @@
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
+
 
         <com.xuexiang.xui.widget.alpha.XUIAlphaImageView
             android:id="@+id/iv_more"

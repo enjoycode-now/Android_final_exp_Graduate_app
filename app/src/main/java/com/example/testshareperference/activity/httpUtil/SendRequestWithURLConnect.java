@@ -33,6 +33,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
+//这是个网络访问工具类，代表我们去访问一个url,然后得到reponse字符串
 public class SendRequestWithURLConnect {
 
     String endURL="app_id=h0gppttquqmsfkoh&app_secret=bXJDMzZqbldRbTF6c3Z1OWxmRHpxZz09";

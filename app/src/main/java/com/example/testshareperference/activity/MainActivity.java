@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
+
+
         //底部栏
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
+    //创建顶部栏的菜单项，从menu文件中获得数据项
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main_toolbar,menu);
