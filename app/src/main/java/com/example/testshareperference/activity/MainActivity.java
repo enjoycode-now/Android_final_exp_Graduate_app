@@ -31,6 +31,7 @@ import com.example.testshareperference.R;
 import com.example.testshareperference.activity.entity.Sentence;
 import com.example.testshareperference.activity.entity.Weather;
 import com.example.testshareperference.activity.httpUtil.SendRequestWithURLConnect;
+import com.example.testshareperference.activity.httpUtil.WasteHttpUtil;
 import com.example.testshareperference.activity.httpUtil.WeatherHttpUtil;
 import com.example.testshareperference.fragment.fragemntMain;
 import com.example.testshareperference.fragment.fragmentLeft;
@@ -184,6 +185,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.nav_night:
                         myPopWindow();
                         break;
+                    case R.id.nav_laji:
+                        myPopWindow_laji();
+                        break;
                     default:
                         Toast.makeText(MainActivity.this, "什么都没有发生哦", Toast.LENGTH_SHORT).show();
                         break;
@@ -263,10 +267,80 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //指定位置弹窗
         popupWindow.showAtLocation(contentView, Gravity.LEFT, 0, 0);
 
+    }
+    private void myPopWindow_laji() {
+        //初始化布局activity_popupWindow.xml
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View contentView = layoutInflater.inflate(R.layout.fragment_waste, null);
+        //对布局里面的控件进行初始化并进行相应的操作
+        //初始化PopupWindow
+        PopupWindow popupWindow = new PopupWindow(contentView, WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        CardView lajiCardView;
+        EditText lajiTestView;
+        Button lajiButton;
+        CardView lajiCardView2;
+        MultiAutoCompleteTextView lajiInfo;
+        CardView lajiCardView4;
+        MultiAutoCompleteTextView lajiSay;
+        CardView lajiCardView3;
+        Button lajiCancel;
 
+        lajiCardView = (CardView) contentView.findViewById(R.id.laji_cardView);
+        lajiTestView = (EditText) contentView.findViewById(R.id.laji_testView);
+        lajiButton = (Button) contentView.findViewById(R.id.laji_button);
+        lajiCardView2 = (CardView) contentView.findViewById(R.id.laji_cardView2);
+        lajiInfo = (MultiAutoCompleteTextView) contentView.findViewById(R.id.laji_info);
+        lajiCardView4 = (CardView) contentView.findViewById(R.id.laji_cardView4);
+        lajiSay = (MultiAutoCompleteTextView) contentView.findViewById(R.id.laji_say);
+        lajiCardView3 = (CardView) contentView.findViewById(R.id.laji_cardView3);
+        lajiCancel = (Button) contentView.findViewById(R.id.laji_cancel);
+
+
+        //关闭弹窗
+        lajiCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        lajiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!lajiTestView.getText().toString().equals("")) {
+                    String cityName = lajiTestView.getText().toString();
+                    String response = null;
+                    WasteHttpUtil wasteHttpUtil = new WasteHttpUtil();
+                    //必须判断网络可用才能使用sendRequestWithURLConnect，否则会卡死进程
+                    if (isNetworkAvailable(MainActivity.this)) {
+                        try {
+                            response = wasteHttpUtil.sendURLRequestForSentence(cityName);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new Gson();
+                        if (response != null && !response.equals("")) {
+//                            Weather weather = gson.fromJson(response, new TypeToken<Weather>(){}.getType());
+                            lajiInfo.setText("暂时功能不齐，抱歉\n"+response);
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(MainActivity.this, "请输入城市名（东莞市）", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+//指定位置弹窗
+        popupWindow.showAtLocation(contentView, Gravity.LEFT, 0, 0);
 
     }
-
 
     //创建顶部栏的菜单项，从menu文件中获得数据项
     @Override
