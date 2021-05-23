@@ -93,6 +93,9 @@ public class fragemntMain extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         reclyerViewTodo.setLayoutManager(layoutManager);
         ToDoAdapter toDoAdapter = new ToDoAdapter(item_everSummaries_list);
+        //使用recylerView嵌套scrollview的话，最好还是用android.support.v4.widget.NestedScrollView,而不是原生reclyerView
+        //然后这里设置false
+        reclyerViewTodo.setNestedScrollingEnabled(false);
         reclyerViewTodo.setAdapter(toDoAdapter);
 
         return view;
