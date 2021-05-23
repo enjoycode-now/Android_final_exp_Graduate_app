@@ -48,7 +48,7 @@ public class fragmentLeft extends Fragment {
         ivBack.setOnClickListener(new OnClick());
         ivFinish.setOnClickListener(new OnClick());
         ivMore.setOnClickListener(new OnClick());
-        ivFinish.setOnClickListener(new OnClick());
+        ivRefresh.setOnClickListener(new OnClick());
         WebSettings settings = webAbout.getSettings();
         //打开内置缩放机制
         settings.setBuiltInZoomControls(true);
