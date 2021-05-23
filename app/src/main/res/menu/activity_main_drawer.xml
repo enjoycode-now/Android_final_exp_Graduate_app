@@ -5,6 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_homepage"
+            android:checkable="true"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="主页" />
         <item
@@ -13,22 +14,17 @@
             android:title="考研论坛" />
         <item
             android:id="@+id/every_sentence"
-            android:checked="true"
+
             android:icon="@drawable/nofaceman"
             android:title="每日一句" />
         <item
             android:id="@+id/nav_me"
             android:icon="@drawable/ic_baseline_account_circle_24"
             android:title="我的" />
-        <item
-            android:id="@+id/nav_castles"
 
-            android:title="城堡(test)" />
         <item
             android:id="@+id/nav_night"
-            android:checkable="false"
-
-            android:title="夜间模式(test)"
+            android:title="查询天气"
              />
 
         <item

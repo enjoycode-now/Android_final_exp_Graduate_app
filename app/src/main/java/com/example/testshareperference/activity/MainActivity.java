@@ -3,9 +3,17 @@ package com.example.testshareperference.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
@@ -13,31 +21,43 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.testshareperference.R;
+import com.example.testshareperference.activity.entity.Sentence;
+import com.example.testshareperference.activity.entity.Weather;
+import com.example.testshareperference.activity.httpUtil.SendRequestWithURLConnect;
+import com.example.testshareperference.activity.httpUtil.WeatherHttpUtil;
 import com.example.testshareperference.fragment.fragemntMain;
 import com.example.testshareperference.fragment.fragmentLeft;
 import com.example.testshareperference.fragment.fragmentSentence;
 import com.example.testshareperference.fragment.fragment_porfile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.xuexiang.xui.XUI;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 
+import org.json.JSONObject;
+
+import java.util.List;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import static com.example.testshareperference.fragment.fragmentSentence.isNetworkAvailable;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar = null;
     DrawerLayout drawerLayout = null;
     NavigationView navigationView = null;
     ViewPager viewPager = null;
     MenuItem menuItem = null;
     BottomNavigationView bottomNavigationView = null;
-
 
 
     @Override
@@ -60,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //中间的内容
         FragmentAdapter<Fragment> adapter = new FragmentAdapter<>(getSupportFragmentManager(), fragments);
-            //预加载页面数量
+        //预加载页面数量
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
@@ -92,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //顶部栏
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
@@ -105,22 +125,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.every_sentence_bottom:
                         navigationView.setCheckedItem(R.id.every_sentence);
-                        viewPager.setCurrentItem(2,true);
+                        viewPager.setCurrentItem(2, true);
                         Toast.makeText(MainActivity.this, "你点击了每天一句", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.home_page_bottom:
                         navigationView.setCheckedItem(R.id.nav_homepage);
-                        viewPager.setCurrentItem(0,true);
+                        viewPager.setCurrentItem(0, true);
                         Toast.makeText(MainActivity.this, "你点击了主页", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.funny_bottom:
                         navigationView.setCheckedItem(R.id.nav_history);
-                        viewPager.setCurrentItem(1,true);
+                        viewPager.setCurrentItem(1, true);
                         Toast.makeText(MainActivity.this, "你点击了考研论坛", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.profile_bottom:
                         navigationView.setCheckedItem(R.id.nav_me);
-                        viewPager.setCurrentItem(3,true);
+                        viewPager.setCurrentItem(3, true);
                         Toast.makeText(MainActivity.this, "你点击了我的", Toast.LENGTH_SHORT).show();
                         break;
                     default:
@@ -139,29 +159,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //收起侧边栏
                 drawerLayout.closeDrawer(GravityCompat.START);
-                switch (item.getItemId()){
+
+                switch (item.getItemId()) {
                     case R.id.every_sentence:
                         navigationView.setCheckedItem(R.id.every_sentence);
-                        viewPager.setCurrentItem(2,true);
-                        Toast.makeText(MainActivity.this,"你点击了每天一句",Toast.LENGTH_SHORT).show();
+                        viewPager.setCurrentItem(2, true);
+                        Toast.makeText(MainActivity.this, "你点击了每天一句", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_homepage:
                         navigationView.setCheckedItem(R.id.nav_homepage);
-                        viewPager.setCurrentItem(0,true);
-                        Toast.makeText(MainActivity.this,"你点击了主页",Toast.LENGTH_SHORT).show();
+                        viewPager.setCurrentItem(0, true);
+                        Toast.makeText(MainActivity.this, "你点击了主页", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_history:
                         navigationView.setCheckedItem(R.id.nav_history);
-                        viewPager.setCurrentItem(1,true);
-                        Toast.makeText(MainActivity.this,"你点击了考研论坛",Toast.LENGTH_SHORT).show();
+                        viewPager.setCurrentItem(1, true);
+                        Toast.makeText(MainActivity.this, "你点击了考研论坛", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_me:
                         navigationView.setCheckedItem(R.id.nav_me);
-                        viewPager.setCurrentItem(3,true);
-                        Toast.makeText(MainActivity.this,"你点击了我的",Toast.LENGTH_SHORT).show();
+                        viewPager.setCurrentItem(3, true);
+                        Toast.makeText(MainActivity.this, "你点击了我的", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_night:
+                        myPopWindow();
                         break;
                     default:
-                        Toast.makeText(MainActivity.this,"什么都没有发生哦",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "什么都没有发生哦", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
@@ -171,28 +195,100 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void myPopWindow() {
+        //初始化布局activity_popupWindow.xml
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View contentView = layoutInflater.inflate(R.layout.fragment_weather, null);
+        //对布局里面的控件进行初始化并进行相应的操作
+        //初始化PopupWindow
+        PopupWindow popupWindow = new PopupWindow(contentView, WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        CardView weatherCardView;
+        EditText weatherTestView;
+        Button weatherButton;
+        CardView weatherCardView2;
+        MultiAutoCompleteTextView weatherInfo;
+        CardView weatherCardView3;
+        Button weatherCancel;
+
+        weatherCardView = (CardView) contentView.findViewById(R.id.weather_cardView);
+        weatherTestView = (EditText) contentView.findViewById(R.id.weather_testView);
+        weatherButton = (Button) contentView.findViewById(R.id.weather_button);
+        weatherCardView2 = (CardView) contentView.findViewById(R.id.weather_cardView2);
+        weatherInfo = (MultiAutoCompleteTextView) contentView.findViewById(R.id.weather_info);
+        weatherCardView3 = (CardView) contentView.findViewById(R.id.weather_cardView3);
+        weatherCancel = (Button) contentView.findViewById(R.id.weather_cancel);
+
+        //关闭弹窗
+        weatherCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        weatherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!weatherTestView.getText().toString().equals("")) {
+                    String cityName = weatherTestView.getText().toString();
+                    String response = null;
+                    WeatherHttpUtil weatherHttpUtil = new WeatherHttpUtil();
+                    //必须判断网络可用才能使用sendRequestWithURLConnect，否则会卡死进程
+                    if (isNetworkAvailable(MainActivity.this)) {
+                        try {
+                            response = weatherHttpUtil.sendURLRequestForSentence(cityName);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new Gson();
+                        if (response != null && !response.equals("")) {
+//                            Weather weather = gson.fromJson(response, new TypeToken<Weather>(){}.getType());
+                            weatherInfo.setText("暂时功能不齐，抱歉\n"+response);
+
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(MainActivity.this, "请输入城市名（东莞市）", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+//指定位置弹窗
+        popupWindow.showAtLocation(contentView, Gravity.LEFT, 0, 0);
+
+
+
+    }
+
 
     //创建顶部栏的菜单项，从menu文件中获得数据项
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main_toolbar,menu);
+        getMenuInflater().inflate(R.menu.menu_main_toolbar, menu);
         return true;
     }
 
     //监听菜单item的点击
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.item_home_page:
                 navigationView.setCheckedItem(R.id.nav_homepage);
-                viewPager.setCurrentItem(3,true);
-                Toast.makeText(this,"你点击了主页",Toast.LENGTH_SHORT).show();
+                viewPager.setCurrentItem(3, true);
+                Toast.makeText(this, "你点击了主页", Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.item_search:
-                Toast.makeText(this,"你点击了搜索",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "你点击了搜索", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -201,16 +297,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void initViewID() {
 
-
-
-    private void initViewID(){
-
-        toolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView =(NavigationView)findViewById(R.id.nav_view);
-        viewPager = (ViewPager)findViewById(R.id.view_pager);
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.nav_bottomView); ;
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.nav_bottomView);
+        ;
     }
 
 
@@ -227,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             default:
                 break;
         }
