@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editview"
         android:layout_margin="14dp"
-        app:cardBackgroundColor="@color/green_end"
+        app:cardBackgroundColor="@color/app_color_theme_6"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:contentPadding="8dp">
@@ -100,12 +100,17 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/fragment_main_scrollerView"
         android:layout_below="@+id/main_button_add">
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
         <com.xuexiang.xui.widget.layout.linkage.view.LinkageRecyclerView
             android:id="@+id/reclyerView_todo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
 

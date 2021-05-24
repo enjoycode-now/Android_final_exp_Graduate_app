@@ -142,6 +142,9 @@ public class fragment_porfile extends Fragment {
                         edit.clear();
                         edit.commit();
 
+                        //删除浏览器缓存
+                        getContext().deleteDatabase("webview.db");
+                        getContext().deleteDatabase("webviewCache.db");
 
                         Toast.makeText(getActivity(), "我已经删了，呜呜", Toast.LENGTH_SHORT).show();
                     }

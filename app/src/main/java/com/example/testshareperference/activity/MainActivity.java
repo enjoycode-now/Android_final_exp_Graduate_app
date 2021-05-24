@@ -2,6 +2,7 @@ package com.example.testshareperference.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.home_page_bottom:
                         navigationView.setCheckedItem(R.id.nav_homepage);
                         viewPager.setCurrentItem(0, true);
+                        viewPager.getAdapter().notifyDataSetChanged();
                         Toast.makeText(MainActivity.this, "你点击了主页", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.funny_bottom:

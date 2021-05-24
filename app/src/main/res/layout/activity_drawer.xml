@@ -10,17 +10,7 @@
     tools:openDrawer="start">
 
 
-<!--    <FrameLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/drawer_layout_fragment"-->
-<!--        >-->
-<!--        <include-->
-<!--            layout="@layout/activity_main"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-<!--        -->
-<!--    </FrameLayout>-->
+
 
     <!--  主内容填充  -->
     <include

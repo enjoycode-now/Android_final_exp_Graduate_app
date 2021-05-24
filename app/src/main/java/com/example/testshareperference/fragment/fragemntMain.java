@@ -3,10 +3,12 @@ package com.example.testshareperference.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,8 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testshareperference.R;
 import com.example.testshareperference.activity.DataProvider;
 
+import com.example.testshareperference.activity.MainActivity;
 import com.example.testshareperference.activity.adapter.ToDoAdapter;
 import com.example.testshareperference.activity.entity.item_EverSummary;
+import com.google.gson.Gson;
 import com.xuexiang.xui.widget.banner.anim.select.ZoomInEnter;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 import com.xuexiang.xui.widget.banner.widget.banner.base.BaseBanner;
@@ -38,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 public class fragemntMain extends Fragment {
 
@@ -50,6 +56,9 @@ public class fragemntMain extends Fragment {
     private List<item_EverSummary> item_everSummaries_list = new ArrayList<>();
     Date kaoYanDate = null;
     Date today;
+    RecyclerView.LayoutManager layoutManager = null;
+    ToDoAdapter toDoAdapter = null;
+    NestedScrollView nestedScrollView = null;
     private List<BannerItem> mData;
 
     @Nullable
@@ -62,6 +71,8 @@ public class fragemntMain extends Fragment {
         initRecylerViewData();
         initData();
         initKaoYanDate();
+
+
 
 
         //轮播条banner
@@ -79,14 +90,15 @@ public class fragemntMain extends Fragment {
         editText.setText("距离考研倒计时：" + initReverseTime() + "天");
 
         //滚动总结在这里注入内容
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         reclyerViewTodo.setLayoutManager(layoutManager);
-        ToDoAdapter toDoAdapter = new ToDoAdapter(item_everSummaries_list);
+        toDoAdapter = new ToDoAdapter(item_everSummaries_list);
 
 
         //使用recylerView嵌套scrollview的话，最好还是用android.support.v4.widget.NestedScrollView,而不是原生reclyerView
         //然后这里设置false
         reclyerViewTodo.setNestedScrollingEnabled(false);
+        nestedScrollView.setNestedScrollingEnabled(false);
         reclyerViewTodo.setAdapter(toDoAdapter);
 
         //+
@@ -98,7 +110,8 @@ public class fragemntMain extends Fragment {
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mySummary", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     Date date = new Date();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
                     String today = simpleDateFormat.format(date);
 
                     if (sharedPreferences.contains(today)) {
@@ -117,23 +130,21 @@ public class fragemntMain extends Fragment {
 //                                contain[0] = 1;
 //                            }
 //                        }).show();
-                        Toast.makeText(getContext(), "一天只能总结一次哦，你上次的总结被覆盖了", Toast.LENGTH_SHORT).show();
-                        //等于1就是用户坚持要覆盖
-                        editor.putString(today, editview2.getText().toString());
-                        editor.commit();
-                        position[0] = item_everSummaries_list.size() - 1;
-                        item_EverSummary item = new item_EverSummary(today, editview2.getText().toString());
-                        toDoAdapter.notifyItemChanged(position[0]);
-                        item_everSummaries_list.remove(position[0]);
-                        item_everSummaries_list.add(position[0], item);
-                        toDoAdapter.notifyItemRangeChanged(0, item_everSummaries_list.size());
+                        Toast.makeText(getContext(), "你操作太频繁了", Toast.LENGTH_SHORT).show();
+//                        editor.putString(today, editview2.getText().toString());
+//                        editor.commit();
+//                        position[0] = item_everSummaries_list.size() - 1;
+//                        item_EverSummary item = new item_EverSummary(today, editview2.getText().toString());
+//                        toDoAdapter.notifyItemChanged(position[0]);
+//                        item_everSummaries_list.remove(position[0]);
+//                        item_everSummaries_list.add(position[0], item);
+//                        toDoAdapter.notifyItemRangeChanged(position[0], item_everSummaries_list.size());
 
 
                     } else {
                         editor.putString(today, editview2.getText().toString());
                         editor.commit();
                         position[0] = item_everSummaries_list.size();
-
                         item_EverSummary item = new item_EverSummary(today, editview2.getText().toString());
                         toDoAdapter.notifyItemChanged(position[0]);
                         item_everSummaries_list.add(item_everSummaries_list.size(), item);
@@ -159,7 +170,8 @@ public class fragemntMain extends Fragment {
 
         for (String s : strings) {
             item_everSummary.setDate(s);
-            item_everSummary.setContent(sharedPreferences.getString(s, "没写东西"));
+            item_everSummary.setContent(sharedPreferences.getString(s, "内容好像走丢了"));
+            Log.d("myinfo", s+"|"+sharedPreferences.getString(s, "内容好像走丢了"));
             item_everSummaries_list.add(item_everSummary);
         }
     }
@@ -203,6 +215,7 @@ public class fragemntMain extends Fragment {
 
         reclyerViewTodo = (LinkageRecyclerView) view.findViewById(R.id.reclyerView_todo);//以及保持的总结
         banner = view.findViewById(R.id.sib_the_most_comlex_usage);//轮播条
+        nestedScrollView = view.findViewById(R.id.fragment_main_scrollerView);
     }
 
 
@@ -213,4 +226,40 @@ public class fragemntMain extends Fragment {
         editText.setText("距离考研倒计时：" + initReverseTime() + "天");
 //        initRecylerViewData();
     }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position;
+        position =toDoAdapter.getContextMenuPosition();
+        switch (item.getItemId()) {
+            case 0://查看
+            {
+                String content = toDoAdapter.getList().get(position).getContent();
+                Toast.makeText(getContext(), ""+content, Toast.LENGTH_SHORT).show();
+
+            }
+            break;
+            case 1://删除
+                if(-1<position&&position<item_everSummaries_list.size()) {
+                    String date = item_everSummaries_list.get(position).getDate();
+                    toDoAdapter.notifyItemChanged(position);
+                    item_everSummaries_list.remove(position);
+                    toDoAdapter.notifyItemRangeChanged(position, item_everSummaries_list.size());
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mySummary", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.remove(date);
+                    editor.commit();
+                    Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 2://修改
+                Toast.makeText(getContext(), "暂时还不支持，抱歉", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
 }
+

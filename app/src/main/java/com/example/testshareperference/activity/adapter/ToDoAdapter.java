@@ -1,6 +1,8 @@
 package com.example.testshareperference.activity.adapter;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +19,39 @@ import com.xuexiang.xui.widget.textview.autofit.AutoFitTextView;
 import java.util.List;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
+    private  int position;
     private List<item_EverSummary> list;
-    static  class ViewHolder extends RecyclerView.ViewHolder{
+    private Context mContext;
+
+    public  int getContextMenuPosition() {
+        return position;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+
+        //保存子项最外层布局的view
+        View itemView;
         TextView textView_date;
-//        TextView textView_content;
         AutoFitTextView textView_content;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView_content = itemView.findViewById(R.id.item_everyday_summmary_textView_content);
             textView_date = itemView.findViewById(R.id.item_everyday_summmary_textView_date);
+            this.itemView = itemView;
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("记录"+(getContextMenuPosition()+1));
+            menu.add(ContextMenu.NONE, 0, ContextMenu.NONE, "查看");
+            menu.add(ContextMenu.NONE, 1, ContextMenu.NONE, "删除");
+            menu.add(ContextMenu.NONE, 2, ContextMenu.NONE, "修改");
         }
     }
+
+
 
     public ToDoAdapter(List<item_EverSummary> list) {
         this.list = list;
@@ -38,6 +62,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public ToDoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_everday_summary,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
+
+
         return viewHolder;
     }
 
@@ -47,10 +73,49 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         Log.d("myinfo", "onBindViewHolder: "+position);
         holder.textView_date.setText(item_everSummary.getDate());
         holder.textView_content.setText(item_everSummary.getContent());
+
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setContextMenuPosition(holder.getLayoutPosition());
+                return false;
+            }
+        });
+    }
+
+    private void setContextMenuPosition(int layoutPosition) {
+        this.position = layoutPosition;
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+    public List<item_EverSummary> getList() {
+        return list;
+    }
+
+    public void setList(List<item_EverSummary> list) {
+        this.list = list;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
+
 }

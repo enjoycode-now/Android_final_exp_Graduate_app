@@ -122,6 +122,12 @@ public class fragmentLeft extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        webAbout.clearCache(true);
+    }
+
     private void initViewID(View view) {
         agentweb = (LinearLayout) view.findViewById(R.id.agentweb);
         ivBack = (XUIAlphaImageView) view.findViewById(R.id.iv_back);

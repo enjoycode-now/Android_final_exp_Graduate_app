@@ -47,6 +47,7 @@
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp"
             app:contentPadding="8dp"
+            android:alpha="0.9"
             app:layout_constraintTop_toBottomOf="parent">
 
             <RelativeLayout
@@ -62,16 +63,6 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-
-        <!--        名称	类型	说明
-        address	字符串	城市具体信息，比如 “广东省 深圳市”
-        cityCode	字符串	城市code
-        temp	字符串	温度值
-        weather	字符串	天气描述，具体描述请查看附件，天气描述清单
-        windDirection	字符串	风向描述，具体描述请查看附件，风向表清单
-        windPower	字符串	风力描述，具体描述请查看附件，风力表清单
-        humidity	字符串	湿度值
-        reportTime	字符串	此次天气发布时间-->
         <androidx.cardview.widget.CardView
             android:id="@+id/weather_cardView4"
             android:layout_width="match_parent"
@@ -80,6 +71,7 @@
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp"
             app:contentPadding="8dp"
+            android:alpha="0.9"
             app:layout_constraintTop_toBottomOf="parent">
 
             <RelativeLayout

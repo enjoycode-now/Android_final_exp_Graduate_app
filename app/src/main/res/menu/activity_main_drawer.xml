@@ -23,6 +23,10 @@
             android:title="我的" />
 
         <item
+            android:title="_________________________"
+            />
+
+        <item
             android:id="@+id/nav_night"
             android:title="查询天气"
              />
@@ -30,6 +34,8 @@
         <item
             android:id="@+id/nav_laji"
             android:title="查询垃圾分类" />
+        <item
+            android:title="_________________________"/>
         <item
             android:id="@+id/nav_house1"
 
