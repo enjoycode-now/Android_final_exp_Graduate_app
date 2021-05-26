@@ -41,6 +41,7 @@ import com.example.testshareperference.fragment.fragment_porfile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.xuexiang.xui.XUI;
 import com.xuexiang.xui.adapter.FragmentAdapter;
@@ -247,17 +248,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String response = null;
                     WeatherHttpUtil weatherHttpUtil = new WeatherHttpUtil();
                     //必须判断网络可用才能使用sendRequestWithURLConnect，否则会卡死进程
-                    if (isNetworkAvailable(MainActivity.this)) {
+                    if (isNetworkAvailable(MainActivity.this) ) {
                         try {
                             response = weatherHttpUtil.sendURLRequestForSentence(cityName);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        if (response != null && !response.equals("")) {
-//                            Weather weather = gson.fromJson(response, new TypeToken<Weather>(){}.getType());
-                            weatherInfo.setText("暂时功能不齐，抱歉\n"+response);
 
+
+                        try {
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh-MM-ss").create();
+                            if (response != null && !response.equals("")) {
+                                Weather weather = gson.fromJson(response, new TypeToken<Weather>() {
+                                }.getType());
+                                String text = "";
+                                if (1 - weather.getCode() < 1e-6) {
+                                    text += "数据获取成功！\n" +
+                                            "城市：" + weather.getData().getAddress() + "\n" +
+                                            "实时温度：" + weather.getData().getTemp() + "\n" +
+                                            "天气描述：" + weather.getData().getWeather() + "\n" +
+                                            "风向描述：" + weather.getData().getWinddirection() + "\n" +
+                                            "湿度值：" + weather.getData().getHumidity() + "\n" +
+                                            "此次天气发布时间：" + weather.getData().getReporttime();
+
+                                } else {
+                                    text += "数据获取失败\n";
+                                }
+                                weatherInfo.setText(text);
+
+                            }
+                        } catch (Exception e) {
+                            weatherInfo.setText("数据获取失败\n");
                         }
                     }
 
@@ -270,6 +291,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         popupWindow.showAtLocation(contentView, Gravity.LEFT, 0, 0);
 
     }
+
+    //判断json字符串
+    public boolean getJSONType(String str) {
+
+        boolean result = false;
+
+        if (str != "") {
+
+            str = str.trim();
+
+            if (str.startsWith("{") && str.endsWith("}")) {
+
+                result = true;
+
+            } else if (str.startsWith("[") && str.endsWith("]")) {
+
+                result = true;
+
+            }
+
+        }
+        return result;
+    }
+
     private void myPopWindow_laji() {
         //初始化布局activity_popupWindow.xml
         LayoutInflater layoutInflater = LayoutInflater.from(this);
@@ -327,15 +372,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        if (response != null && !response.equals("")) {
+                        try {
+                            Gson gson = new Gson();
+                            if (response != null && !response.equals("")) {
 //                            Weather weather = gson.fromJson(response, new TypeToken<Weather>(){}.getType());
-                            lajiInfo.setText("暂时功能不齐，抱歉\n"+response);
+                                lajiInfo.setText("暂时功能不齐，抱歉\n" + response);
+                            }
+                        }catch (Exception e){
+                            lajiInfo.setText("数据访问失败\n");
                         }
                     }
 
                 } else {
-                    Toast.makeText(MainActivity.this, "请输入城市名（东莞市）", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "请输入物品名称", Toast.LENGTH_SHORT).show();
                 }
             }
         });
