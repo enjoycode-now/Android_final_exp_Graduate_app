@@ -2,14 +2,14 @@ package com.example.testshareperference.activity.entity;
 
 public class Weather {
 
-    private int code;
+    private double code;
     private String msg;
     private WeatherData data;
 
-    public void setCode(int code) {
+    public void setCode(double code) {
         this.code = code;
     }
-    public int getCode() {
+    public double getCode() {
         return code;
     }
 

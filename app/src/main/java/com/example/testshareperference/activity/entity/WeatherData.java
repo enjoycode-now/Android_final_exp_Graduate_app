@@ -1,7 +1,5 @@
 package com.example.testshareperference.activity.entity;
 
-import java.util.Date;
-
 public class WeatherData {
 
     private String address;
@@ -13,9 +11,12 @@ public class WeatherData {
     private String winddirection;
 
     private String windpower;
-    private Date humidity;
+    private String humidity;
 
-    private String reporttime;
+    private String reporttime="";
+
+
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -58,17 +59,15 @@ public class WeatherData {
         return windpower;
     }
 
-    public void setHumidity(Date humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
-    public Date getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setReporttime(String reporttime) {
-        this.reporttime = reporttime;
-    }
+
     public String getReporttime() {
-        return reporttime;
+        return this.reporttime;
     }
 }

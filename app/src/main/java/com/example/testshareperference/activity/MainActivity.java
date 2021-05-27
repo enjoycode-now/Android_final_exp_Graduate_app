@@ -267,9 +267,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             "城市：" + weather.getData().getAddress() + "\n" +
                                             "实时温度：" + weather.getData().getTemp() + "\n" +
                                             "天气描述：" + weather.getData().getWeather() + "\n" +
-                                            "风向描述：" + weather.getData().getWinddirection() + "\n" +
-                                            "湿度值：" + weather.getData().getHumidity() + "\n" +
-                                            "此次天气发布时间：" + weather.getData().getReporttime();
+//                                            "风向描述：" + weather.getData().getWinddirection() + "\n" +
+                                            "湿度值：" + weather.getData().getHumidity() + "\n" ;
+//                                            "此次天气发布时间：" + weather.getData().getReporttime();
 
                                 } else {
                                     text += "数据获取失败\n";

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +54,7 @@ public class fragemntMain extends Fragment {
     EditText editview2;
     com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner banner;
     LinkageRecyclerView reclyerViewTodo;
-    private List<item_EverSummary> item_everSummaries_list = new ArrayList<>();
+    List<item_EverSummary> item_everSummaries_list = new ArrayList<>();
     Date kaoYanDate = null;
     Date today;
     RecyclerView.LayoutManager layoutManager = null;
@@ -145,10 +146,10 @@ public class fragemntMain extends Fragment {
                         editor.putString(today, editview2.getText().toString());
                         editor.commit();
                         position[0] = item_everSummaries_list.size();
-                        item_EverSummary item = new item_EverSummary(today, editview2.getText().toString());
-                        toDoAdapter.notifyItemChanged(position[0]);
-                        item_everSummaries_list.add(item_everSummaries_list.size(), item);
-                        toDoAdapter.notifyItemRangeChanged(position[0], item_everSummaries_list.size());
+//                        toDoAdapter.notifyItemChanged(position[0]);
+                        item_everSummaries_list.add(item_everSummaries_list.size(), new item_EverSummary(today, editview2.getText().toString()));
+                        toDoAdapter.notifyDataSetChanged();
+//                        toDoAdapter.notifyItemRangeChanged(position[0], item_everSummaries_list.size());
                     }
 
                     editview2.setText("");
@@ -164,16 +165,24 @@ public class fragemntMain extends Fragment {
     //初始化即将要注入recylerView的内容
     private void initRecylerViewData() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mySummary", Context.MODE_PRIVATE);
-        item_EverSummary item_everSummary = new item_EverSummary();
         Set<String> strings = sharedPreferences.getAll().keySet();
         item_everSummaries_list.clear();
 
         for (String s : strings) {
+            //这个实例化不能放在for的外面，否则会出现每个item都重复为最后一个
+            item_EverSummary item_everSummary = new item_EverSummary();
             item_everSummary.setDate(s);
             item_everSummary.setContent(sharedPreferences.getString(s, "内容好像走丢了"));
             Log.d("myinfo", s+"|"+sharedPreferences.getString(s, "内容好像走丢了"));
             item_everSummaries_list.add(item_everSummary);
         }
+
+//        Set<? extends Map.Entry<String, ?>> entrySet = sharedPreferences.getAll().entrySet();
+//        for(Map.Entry<String, ?> entry : entrySet){
+//            item_everSummary.setDate(entry.getKey());
+//            item_everSummary.setContent((String) entry.getValue());
+//            item_everSummaries_list.add(item_everSummary);
+//        }
     }
 
     //计算倒计天数
@@ -219,6 +228,13 @@ public class fragemntMain extends Fragment {
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        item_everSummaries_list.clear();
+        toDoAdapter.notifyDataSetChanged();
+    }
+
     //重新回到这个fragment的操作，更新一下倒计时，以免之前改动发生的不正确
     @Override
     public void onResume() {
@@ -242,9 +258,10 @@ public class fragemntMain extends Fragment {
             case 1://删除
                 if(-1<position&&position<item_everSummaries_list.size()) {
                     String date = item_everSummaries_list.get(position).getDate();
-                    toDoAdapter.notifyItemChanged(position);
+//                    toDoAdapter.notifyItemChanged(position);
                     item_everSummaries_list.remove(position);
-                    toDoAdapter.notifyItemRangeChanged(position, item_everSummaries_list.size());
+                    toDoAdapter.notifyDataSetChanged();
+//                    toDoAdapter.notifyItemRangeChanged(position, item_everSummaries_list.size());
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mySummary", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.remove(date);

@@ -74,7 +74,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         holder.textView_date.setText(item_everSummary.getDate());
         holder.textView_content.setText(item_everSummary.getContent());
 
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"长按弹出菜单",Toast.LENGTH_SHORT).show();
+            }
+        });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
